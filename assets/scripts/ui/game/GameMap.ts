@@ -5,8 +5,10 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import CAudio from "../../common/CAudio";
 import MazeDFS from "../../components/maze/MazeDFS";
 import GlobalGame from "../../global/GlobalGame";
+import GameUI from "./GameUI";
 
 const { ccclass, property } = cc._decorator;
 
@@ -179,6 +181,7 @@ export default class NewClass extends cc.Component {
                     let { exit } = this.maze.getEnterAndExitPoint();
                     if (this.maze.getMoveCurrentPos() == exit) {
                         // cc.log('过关')
+                        GameUI.onLevelComplete();
                     } else {
                         // this.showDirection(this.maze)
                     }

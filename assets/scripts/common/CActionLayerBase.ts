@@ -3,6 +3,7 @@
  */
 
 import CAction from "./CAction";
+import CAudio from "./CAudio";
 
 
 const { ccclass, property } = cc._decorator;
@@ -49,6 +50,7 @@ export default class CActionLayerBase extends cc.Component {
     }
     /** 后退 */
     CActionOnBackLayerButton(event: cc.Event.EventTouch, customEventData: string) {
+        CAudio.playBack();
         CAction.onBackLayer(customEventData)
     }
 }

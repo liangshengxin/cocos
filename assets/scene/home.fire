@@ -323,7 +323,7 @@
     "_cacheMode": 0,
     "playTimes": -1,
     "premultipliedAlpha": false,
-    "_armatureKey": "8250cb4b-6b08-400f-a0d5-4115e65208d9#8930b412-6d67-4397-8f99-a998bfca5adf",
+    "_armatureKey": "1d4c2db9-6100-4320-b5bd-509b863162f9#94f7c035-6f87-4b88-986a-2630edfa8d39",
     "_accTime": 0,
     "_playCount": 0,
     "_frameCache": null,
@@ -331,10 +331,10 @@
     "_playing": false,
     "_armatureCache": null,
     "_N$dragonAsset": {
-      "__uuid__": "8250cb4b-6b08-400f-a0d5-4115e65208d9"
+      "__uuid__": "1d4c2db9-6100-4320-b5bd-509b863162f9"
     },
     "_N$dragonAtlasAsset": {
-      "__uuid__": "8930b412-6d67-4397-8f99-a998bfca5adf"
+      "__uuid__": "94f7c035-6f87-4b88-986a-2630edfa8d39"
     },
     "_N$_defaultArmatureIndex": 0,
     "_N$_animationIndex": 1,
@@ -342,7 +342,7 @@
     "_N$timeScale": 0.2,
     "_N$debugBones": false,
     "_N$enableBatch": false,
-    "_id": "38wBUV64RF163tA7KzV2Me"
+    "_id": "32rM6d+RFH37CkoklO69g4"
   },
   {
     "__type__": "cc.Node",
@@ -1001,7 +1001,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 57.79,
+      "width": 131.16,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -1053,8 +1053,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "simple",
-    "_N$string": "simple",
+    "_string": "simple random",
+    "_N$string": "simple random",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,

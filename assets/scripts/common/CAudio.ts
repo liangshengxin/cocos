@@ -16,6 +16,22 @@ export default class CAudio extends cc.Component {
             cc.audioEngine.playEffect(assets, false);
         })
     }
+    /** 播放成功音效 */
+    static playSuccess() {
+        cc.resources.load("audio/success", cc.AudioClip, (error, assets: cc.AudioClip) => {
+            if (error) cc.error(error);
+            cc.audioEngine.playEffect(assets, false);
+        })
+    }
+     /** 播放返回音效 */
+     static playBack() {
+        // cc.resources.load("audio/back", cc.AudioClip, (error, assets: cc.AudioClip) => {
+        //     if (error) cc.error(error);
+        //     cc.audioEngine.playEffect(assets, false);
+        // })
+    }
+
+    //按键音
     onPlayKeyTone(){
         CAudio.playKeyTone();
     }
