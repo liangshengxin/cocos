@@ -25,6 +25,8 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     exit: cc.Node = null;
 
+    @property({type:cc.Node,tooltip:"背景节点"})
+    bgNode:cc.Node=null;
 
 
     /**迷宫生成对象 */
@@ -39,7 +41,7 @@ export default class NewClass extends cc.Component {
         let level = GlobalGame.getCurrentLevel();
         //初始化
         this.maze = new MazeDFS();
-        this.maze.init({ width: level+4, height: level+4 });
+        this.maze.init({ width: level + 4, height: level + 4 });
         this.maze.generateMaze();
     }
 
@@ -48,9 +50,34 @@ export default class NewClass extends cc.Component {
         this.generateMaze();
         //设置角色和出口
         this.setPlayerAndExit();
-        //移动
+        //移动监听
         this.moves()
+        //缩放，并设置背景
+        this.scaleCamera();
+    }
 
+    //根据迷宫大小缩小主摄像机
+    private scaleCamera() {
+        let camera = cc.Camera.main
+        let mSize = 32;
+        let { width, height } = this.maze.getSize();
+        width = (width*2) * 32+32;
+        height = (height*2) * 32+32;
+        let { width:w, height:h } = cc.view.getVisibleSize();
+        
+        // cc.log(width,height,w,h)
+        // cc.log(width/w,height/h)
+        // cc.log(w/width,h/height)
+
+        let scalew = w/width;
+        let scaleh =h/height
+        
+        //缩放大小
+        let scale = scalew>scaleh?scaleh:scalew;
+        camera.zoomRatio=scale;
+
+        this.bgNode.width=width
+        this.bgNode.height=height
     }
 
     /** 生成迷宫 */
@@ -109,7 +136,6 @@ export default class NewClass extends cc.Component {
     private moves() {
         this.node.on(cc.Node.EventType.TOUCH_START, (event: cc.Event.EventTouch) => {
             this.movePoint = event.getLocation();
-            cc.log('???')
         })
         this.node.on(cc.Node.EventType.TOUCH_END, (event: cc.Event.EventTouch) => {
             //正在移动
@@ -122,26 +148,22 @@ export default class NewClass extends cc.Component {
             let dir = event.getLocation().sub(this.movePoint);
             if (Math.abs(dir.x) > Math.abs(dir.y)) {
                 if (dir.x > 0) {
-                    cc.log('右')
+                    // cc.log('右')
                     stepData = this.maze.getMoveStepData(this.maze.getMoveCurrentPos(), 'right')
-
                 } else {
-                    cc.log('左')
+                    // cc.log('左')
                     stepData = this.maze.getMoveStepData(this.maze.getMoveCurrentPos(), 'left')
-
                 }
             } else {
                 if (dir.y > 0) {
-                    cc.log('上')
+                    // cc.log('上')
                     stepData = this.maze.getMoveStepData(this.maze.getMoveCurrentPos(), 'up')
-
                 } else {
-                    cc.log('下')
+                    // cc.log('下')
                     stepData = this.maze.getMoveStepData(this.maze.getMoveCurrentPos(), 'down')
-
                 }
             }
-    
+
             //执行动画
             if (stepData.length > 0) {
                 //开始
@@ -156,7 +178,7 @@ export default class NewClass extends cc.Component {
                 tween.call(() => {
                     let { exit } = this.maze.getEnterAndExitPoint();
                     if (this.maze.getMoveCurrentPos() == exit) {
-                        cc.log('过关')
+                        // cc.log('过关')
                     } else {
                         // this.showDirection(this.maze)
                     }

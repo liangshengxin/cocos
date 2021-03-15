@@ -13,5 +13,6 @@ export default class Common extends cc.Component {
     onLoad(){
         //Common设为常驻节点
         cc.game.addPersistRootNode(this.node)
+        cc.log(1321323);
     }
 }

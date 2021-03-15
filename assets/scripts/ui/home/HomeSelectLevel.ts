@@ -27,7 +27,6 @@ export default class HomeSelectLevel extends cc.Component {
         let childCount = Math.floor((width - 50) / (childSize));
         let sum = 200;
 
-
         this.list.content.width = childCount * childSize;
         // this.list.content.height = sum/childCount*childSize;
         // this.list.content.getComponent(cc.Layout).spacingX=spacingXY;
@@ -36,21 +35,34 @@ export default class HomeSelectLevel extends cc.Component {
     }
 
     start() {
-        let item = this.list.content.getChildByName('item');
-        for (let i = 0; i < 10; i++) {
-            item = cc.instantiate(item);
-            this.list.content.addChild(item)
-            item.getChildByName('text').getComponent(cc.Label).string = String(i + 1)
-        }
+        this.generateLevel();
     }
 
     // update (dt) {}
 
-    onPlayKeyTone() {
-        CAudio.playKeyTone();
+    /**生成关卡 */
+    generateLevel(){
+        let levelMax = 10;
+        let clickEventHandler = new cc.Component.EventHandler();
+        clickEventHandler.target=this.node;
+        clickEventHandler.component="HomeSelectLevel";
+        clickEventHandler.handler="onPlayGame"
+
+        cc.resources.load("/prefab/item/SelectLevelItem",cc.Prefab,(err, asset: cc.Prefab)=>{
+            for (let i = 0; i < 10; i++) {
+                let item = cc.instantiate(asset);
+                this.list.content.addChild(item)
+                item.getChildByName('text').getComponent(cc.Label).string = String(i + 1)
+                item.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+            }
+        })
     }
 
+    //选择关卡后回调
     onPlayGame(event: cc.Event) {
+
+        CAudio.playKeyTone();
+
         let node: cc.Node = event.target
         let level = node.getChildByName('text').getComponent(cc.Label).string;
         //设置关卡等级

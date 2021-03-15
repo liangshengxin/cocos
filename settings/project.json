@@ -1,11 +1,22 @@
 {
   "last-module-event-record-time": 1614522804768,
   "group-list": [
-    "default"
+    "default",
+    "ui",
+    "bg"
   ],
   "collision-matrix": [
     [
       true
+    ],
+    [
+      false,
+      false
+    ],
+    [
+      false,
+      false,
+      false
     ]
   ],
   "excluded-modules": [
