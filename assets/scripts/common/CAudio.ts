@@ -9,6 +9,10 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class CAudio extends cc.Component {
+    static init(){
+        // cc.audioEngine
+    }
+
     /** 播放按键音效 */
     static playKeyTone() {
         cc.resources.load("audio/popup", cc.AudioClip, (error, assets: cc.AudioClip) => {

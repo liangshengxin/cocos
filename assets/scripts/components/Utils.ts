@@ -16,3 +16,11 @@ export function getSecondToMinute(second: number, ismm: boolean = false): string
 
     return mm + ':' + ss
 }
+
+/**
+ * 前导0
+ */
+export function getNumberToZero(value: number, count: number = 1) {
+    let ss = value < 10 ? "0".repeat(count) + value.toString() : value.toString();
+    return ss;
+}
