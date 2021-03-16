@@ -7,6 +7,7 @@
 
 import CAction from "../../common/CAction";
 import CAudio from "../../common/CAudio";
+import PrefabPoolNode from "../../components/PrefabPoolNode";
 
 const {ccclass, property} = cc._decorator;
 
@@ -15,7 +16,14 @@ export default class HomeUI extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        cc.log('???')
+        cc.resources.load("/prefab/item/SelectLevelItem",cc.Prefab,(err, asset: cc.Prefab)=>{
+            PrefabPoolNode.instance('level',asset,10);
+            CAction.initLayer("SelectLevel");
+        })
+        CAction.initLayer("Menu")
+    }
 
     start () {
 

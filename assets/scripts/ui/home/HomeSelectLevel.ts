@@ -7,6 +7,7 @@
 
 import CAction from "../../common/CAction";
 import CAudio from "../../common/CAudio";
+import PrefabPoolNode from "../../components/PrefabPoolNode";
 import GlobalGame from "../../global/GlobalGame";
 
 const { ccclass, property } = cc._decorator;
@@ -49,8 +50,10 @@ export default class HomeSelectLevel extends cc.Component {
         clickEventHandler.handler="onPlayGame"
 
         cc.resources.load("/prefab/item/SelectLevelItem",cc.Prefab,(err, asset: cc.Prefab)=>{
-            for (let i = 0; i < 10; i++) {
-                let item = cc.instantiate(asset);
+
+            for (let i = 0; i < levelMax; i++) {
+                // let item = cc.instantiate(asset);
+                let item = PrefabPoolNode.getPrefabPool('level').getNode();
                 this.list.content.addChild(item)
                 item.getChildByName('text').getComponent(cc.Label).string = String(i + 1)
                 item.getComponent(cc.Button).clickEvents.push(clickEventHandler);

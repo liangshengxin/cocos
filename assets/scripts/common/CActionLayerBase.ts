@@ -13,6 +13,14 @@ export default class CActionLayerBase extends cc.Component {
     /** 刷新当前层 */
     onRefreshLayer(): void { };
 
+    /** 初始化当前层大小，避免加载时大小错误 */
+    initSize(){
+        this.onClose();
+        let { width: w, height: h } = cc.view.getVisibleSize();
+        this.node.width=w;
+        this.node.height=h;
+    }
+
     /** 关闭层 */
     onClose() {
         this.node.zIndex = 0;

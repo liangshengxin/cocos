@@ -25,6 +25,10 @@
      public unuse: (node: cc.Node) => void;
      /** 重新使用回调 */
      public reuse: (node: cc.Node) => void;
+
+     static getPrefabPool(name: string): PrefabPoolNode {
+        return NodePools[name]
+    }
  
  
      /** 静态实例化 */

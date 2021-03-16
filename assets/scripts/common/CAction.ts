@@ -16,6 +16,7 @@ export default class CAction extends cc.Component {
     private static configsNode = {
         /** Layers节点所在位置 */
         layers: "Canvas/Layers",
+        // layers: "Common/Layers",
         /** layer的prefab所在 相对resources */
         prefabLayer: "prefab/layers/",
     };
@@ -37,13 +38,17 @@ export default class CAction extends cc.Component {
         CAction.onScene(customEventData)
     }
 
+    //初始化指定层
+    public static initLayer(name: string) {
+        this.onOpenLayer(name, true);
+    }
 
 
     /**
      * 打开指定层
      * @param name 层prefab名称
      */
-    public static onOpenLayer(name: string) {
+    public static onOpenLayer(name: string, isInit: boolean = false) {
         //layers层
         let layersNode = cc.find(CAction.configsNode.layers);
         if (!layersNode) return;
@@ -53,6 +58,7 @@ export default class CAction extends cc.Component {
 
         //打开的和当先显示为同一个层
         if (GlobalLayers[zIndex] === name) return;
+
 
         //已存在则打开
         let childNode = layersNode.getChildByName(name);
@@ -65,9 +71,14 @@ export default class CAction extends cc.Component {
             CAction.getPrefabLayer(name, (prefab) => {
                 let n = cc.instantiate(prefab);
                 layersNode.addChild(n, 0, name)
-                n.getComponent(CActionLayerBase).onOpen(Number(zIndex))
-                //记录
-                GlobalLayers.push(name)
+                if (isInit) {
+                    n.getComponent(CActionLayerBase).initSize()
+                } else {
+                    n.getComponent(CActionLayerBase).onOpen(Number(zIndex))
+                    //记录打开层
+                    GlobalLayers.push(name)
+                }
+
             })
         }
     }
@@ -105,10 +116,10 @@ export default class CAction extends cc.Component {
     /**
      * 关闭所有层
      */
-    public static onBackAll(){
+    public static onBackAll() {
         let node = cc.find(CAction.configsNode.layers);
-        let layerName:string = null;
-        while(layerName = GlobalLayers.pop()){
+        let layerName: string = null;
+        while (layerName = GlobalLayers.pop()) {
             let childNode = node.getChildByName(layerName);
             childNode?.getComponent(CActionLayerBase).onClose()
         }

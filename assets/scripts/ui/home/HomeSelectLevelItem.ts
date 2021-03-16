@@ -16,13 +16,17 @@ export default class HomeSelectLevelItem extends cc.Component {
     text: cc.Label = null;
 
 
+    @property(cc.Node)
+    coin: cc.Node = null;
+
     // LIFE-CYCLE CALLBACKS:
 
+
     onLoad() {
-       
+      
     }
 
     start() {
-      
+
     }
 }
