@@ -10,7 +10,7 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class CAudio extends cc.Component {
     static init(){
-        // cc.audioEngine
+        
     }
 
     /** 播放按键音效 */
@@ -33,6 +33,9 @@ export default class CAudio extends cc.Component {
         //     if (error) cc.error(error);
         //     cc.audioEngine.playEffect(assets, false);
         // })
+    }
+
+    static playBgm(){
     }
 
     //按键音
