@@ -9,6 +9,7 @@ import CAction from "../../common/CAction";
 import CAudio from "../../common/CAudio";
 import PrefabPoolNode from "../../components/PrefabPoolNode";
 import GlobalGame from "../../global/GlobalGame";
+import HomeUI from "./HomeUI";
 
 const { ccclass, property } = cc._decorator;
 
@@ -42,24 +43,51 @@ export default class HomeSelectLevel extends cc.Component {
     // update (dt) {}
 
     /**生成关卡 */
-    generateLevel(){
-        let levelMax = 10;
+    generateLevel() {
+
+        //按钮监听
         let clickEventHandler = new cc.Component.EventHandler();
-        clickEventHandler.target=this.node;
-        clickEventHandler.component="HomeSelectLevel";
-        clickEventHandler.handler="onPlayGame"
+        clickEventHandler.target = this.node;
+        clickEventHandler.component = "HomeSelectLevel";
+        clickEventHandler.handler = "onPlayGame"
 
-        cc.resources.load("/prefab/item/SelectLevelItem",cc.Prefab,(err, asset: cc.Prefab)=>{
-
-            for (let i = 0; i < levelMax; i++) {
-                // let item = cc.instantiate(asset);
-                let item = PrefabPoolNode.getPrefabPool('level').getNode();
-                this.list.content.addChild(item)
-                item.getChildByName('text').getComponent(cc.Label).string = String(i + 1)
-                item.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+        //生成关卡选项
+        cc.resources.load("/prefab/item/SelectLevelItem", cc.Prefab, (err, asset: cc.Prefab) => {
+            if (err) {
+                cc.error(err)
             }
+            let generator = this.generatorNode(clickEventHandler);
+            cc.tween(this.node)
+                .call(() => {
+                    let { done } = generator.next();
+                    if (done) cc.tween().stop();
+                })
+                .delay(0.01)
+                .union()
+                .repeatForever()
+                .start();
+
         })
+
+      
     }
+
+    /**
+     * 
+     * @param clickEventHandler 按钮监听
+     */
+    private *generatorNode(clickEventHandler: cc.Component.EventHandler) {
+        for (let i = 0; i < HomeUI.MAX_LEVEL; i++) {
+            // let item = cc.instantiate(asset);
+            let item = PrefabPoolNode.getPrefabPool('level').getNode();
+            this.list.content.addChild(item)
+            item.getChildByName('text').getComponent(cc.Label).string = String(i + 1)
+            item.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+            yield item;
+        }
+        return;
+    }
+
 
     //选择关卡后回调
     onPlayGame(event: cc.Event) {

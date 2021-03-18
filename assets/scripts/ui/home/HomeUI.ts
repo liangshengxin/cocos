@@ -14,11 +14,13 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class HomeUI extends cc.Component {
 
+    static MAX_LEVEL=20;
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         cc.resources.load("/prefab/item/SelectLevelItem",cc.Prefab,(err, asset: cc.Prefab)=>{
-            PrefabPoolNode.instance('level',asset,10);
+            PrefabPoolNode.instance('level',asset,HomeUI.MAX_LEVEL);
             CAction.initLayer("SelectLevel");
         })
         CAction.initLayer("Menu")

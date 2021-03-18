@@ -33,6 +33,7 @@ export default class GameUI extends cc.Component {
     }
 
     start() {
+        //记录时间
         GameUI.tweenTime = cc.tween(this.node)
             .call(() => {
                 GlobalGame.incrCurrentTime();

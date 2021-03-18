@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
         //设置角色和出口
         this.setPlayerAndExit();
         //移动监听
-        this.moves(cc.Canvas.instance.node)
+        this.moves(cc.find('Canvas/ui'))
         //缩放，并设置背景
         this.scaleCamera();
     }
