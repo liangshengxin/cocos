@@ -27,8 +27,8 @@ export default class NewClass extends cc.Component {
     @property(cc.Node)
     exit: cc.Node = null;
 
-    @property({type:cc.Node,tooltip:"背景节点"})
-    bgNode:cc.Node=null;
+    @property({ type: cc.Node, tooltip: "背景节点" })
+    bgNode: cc.Node = null;
 
 
     /**迷宫生成对象 */
@@ -53,7 +53,7 @@ export default class NewClass extends cc.Component {
         //设置角色和出口
         this.setPlayerAndExit();
         //移动监听
-        this.moves()
+        this.moves(cc.Canvas.instance.node)
         //缩放，并设置背景
         this.scaleCamera();
     }
@@ -63,23 +63,23 @@ export default class NewClass extends cc.Component {
         let camera = cc.Camera.main
         let mSize = 32;
         let { width, height } = this.maze.getSize();
-        width = (width*2) * 32+32;
-        height = (height*2) * 32+32;
-        let { width:w, height:h } = cc.view.getVisibleSize();
-        
+        width = (width * 2) * 32 + 32;
+        height = (height * 2) * 32 + 32;
+        let { width: w, height: h } = cc.view.getVisibleSize();
+
         // cc.log(width,height,w,h)
         // cc.log(width/w,height/h)
         // cc.log(w/width,h/height)
 
-        let scalew = w/width;
-        let scaleh =h/height
-        
-        //缩放大小
-        let scale = scalew>scaleh?scaleh:scalew;
-        camera.zoomRatio=scale;
+        let scalew = w / width;
+        let scaleh = h / height
 
-        this.bgNode.width=width
-        this.bgNode.height=height
+        //缩放大小
+        let scale = scalew > scaleh ? scaleh : scalew;
+        camera.zoomRatio = scale;
+
+        this.bgNode.width = width
+        this.bgNode.height = height
     }
 
     /** 生成迷宫 */
@@ -135,11 +135,11 @@ export default class NewClass extends cc.Component {
         return node;
     }
 
-    private moves() {
-        this.node.on(cc.Node.EventType.TOUCH_START, (event: cc.Event.EventTouch) => {
+    private moves(bindNode: cc.Node) {
+        bindNode.on(cc.Node.EventType.TOUCH_START, (event: cc.Event.EventTouch) => {
             this.movePoint = event.getLocation();
         })
-        this.node.on(cc.Node.EventType.TOUCH_END, (event: cc.Event.EventTouch) => {
+        bindNode.on(cc.Node.EventType.TOUCH_END, (event: cc.Event.EventTouch) => {
             //正在移动
             if (this.isMoving) return;
             this.isMoving = true;
