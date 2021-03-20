@@ -14,7 +14,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class HomeUI extends cc.Component {
 
-    static MAX_LEVEL=20;
+    static MAX_LEVEL=10;
 
     // LIFE-CYCLE CALLBACKS:
 
