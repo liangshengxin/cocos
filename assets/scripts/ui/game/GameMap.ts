@@ -56,6 +56,9 @@ export default class NewClass extends cc.Component {
         this.moves(cc.find('Canvas/ui'))
         //缩放，并设置背景
         this.scaleCamera();
+
+        //初始化方位指示
+        this.showDirection()
     }
 
     //根据迷宫大小缩小主摄像机
@@ -170,7 +173,8 @@ export default class NewClass extends cc.Component {
             if (stepData.length > 0) {
                 //开始
                 tween.call(() => {
-                    // this.hideDirection();
+                    //隐藏方位指示
+                    this.hideDirection();
                 })
                 //运行路线
                 for (const iterator of stepData) {
@@ -183,7 +187,8 @@ export default class NewClass extends cc.Component {
                         // cc.log('过关')
                         GameUI.onLevelComplete();
                     } else {
-                        // this.showDirection(this.maze)
+                        //更新方位指示
+                        this.showDirection();
                     }
                     //结束移动
                     this.isMoving = false;
@@ -195,6 +200,36 @@ export default class NewClass extends cc.Component {
             }
 
         })
+    }
+
+    /**显示方位指示 */
+    private showDirection() {
+        //地图方位
+        let points = this.maze.getDirMove(this.maze.getMoveCurrentPos())
+        cc.log(points,'ooooo')
+
+        //龙骨
+        let dragon = this.player.getComponent(dragonBones.ArmatureDisplay);
+        let armature: dragonBones.Armature = dragon.armature();
+        //设置插槽显示隐藏
+        armature.getSlots().forEach((slot: dragonBones.Slot) => {
+            if (slot.parent.name != 'body') {
+                let displayIndex = points[slot.parent.name] ? 0 : -1;
+                cc.log(points[slot.parent.name],slot.parent.name,'lllll')
+                slot.displayIndex = displayIndex;
+            }
+        });
+    }
+    private hideDirection() {
+        //龙骨
+        let dragon = this.player.getComponent(dragonBones.ArmatureDisplay);
+        let armature: dragonBones.Armature = dragon.armature();
+        //设置插槽显示隐藏
+        armature.getSlots().forEach((slot: dragonBones.Slot) => {
+            if (slot.parent.name != 'body') {
+                slot.displayIndex = -1;
+            }
+        });
     }
 
     // update (dt) {}

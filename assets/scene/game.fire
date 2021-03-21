@@ -354,7 +354,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Bg",
+    "_name": "MapBg",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -617,7 +617,7 @@
     "_cacheMode": 0,
     "playTimes": -1,
     "premultipliedAlpha": false,
-    "_armatureKey": "de30442a-0b52-4f4a-b620-324263061ddc#348e7e91-5c8f-46a7-bad7-413009ee0675",
+    "_armatureKey": "57130ebc-17ee-47d5-afc2-35f29cc9c719#40a58920-8b7d-4438-9cb0-6a056c58b1eb",
     "_accTime": 0,
     "_playCount": 0,
     "_frameCache": null,
@@ -625,10 +625,10 @@
     "_playing": false,
     "_armatureCache": null,
     "_N$dragonAsset": {
-      "__uuid__": "de30442a-0b52-4f4a-b620-324263061ddc"
+      "__uuid__": "57130ebc-17ee-47d5-afc2-35f29cc9c719"
     },
     "_N$dragonAtlasAsset": {
-      "__uuid__": "348e7e91-5c8f-46a7-bad7-413009ee0675"
+      "__uuid__": "40a58920-8b7d-4438-9cb0-6a056c58b1eb"
     },
     "_N$_defaultArmatureIndex": 0,
     "_N$_animationIndex": 1,
