@@ -13,12 +13,16 @@ export default class CActionLayerBase extends cc.Component {
     /** 刷新当前层 */
     onRefreshLayer(): void { };
 
+    /** 打开动画完成 */
+    onOpenComplete: () => void;
+
+
     /** 初始化当前层大小，避免加载时大小错误 */
-    initSize(){
+    initSize() {
         this.onClose();
         let { width: w, height: h } = cc.view.getVisibleSize();
-        this.node.width=w;
-        this.node.height=h;
+        this.node.width = w;
+        this.node.height = h;
     }
 
     /** 关闭层 */
@@ -44,7 +48,12 @@ export default class CActionLayerBase extends cc.Component {
         if (isTween) {
             cc.tween(this.node)
                 .to(0, { scale: 0, opacity: 0, })
-                .to(0.2, { scaleX: 1, scaleY: 1, opacity: 255, }, { easing: "backOut" })
+                .to(0.3, { scaleX: 1, scaleY: 1, opacity: 255, }, { easing: "backOut" })
+                .call(()=>{
+                    if(this.onOpenComplete){
+                        this.onOpenComplete();
+                    }
+                })
                 .start()
         } else {
             this.node.scale = 1;

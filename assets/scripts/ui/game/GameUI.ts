@@ -28,8 +28,12 @@ export default class GameUI extends cc.Component {
         CAction.onScene('home');
     }
 
-    onEnable(){
+    onEnable() {
+        //初始化当前关卡时间
         GlobalGame.setCurrentTime(0)
+        //设置当前关卡
+        cc.find('Canvas/ui/level/value').getComponent(cc.Label).string = GlobalGame.getCurrentLevel().toString();
+
     }
 
     start() {
